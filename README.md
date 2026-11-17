@@ -1,8 +1,18 @@
 # Rust Edition
 
-Protótipo independente para reimplementar o Terraria Mobile em Rust. A referência de comportamento é o Terraria Mobile 1.4.5.8.6. Este primeiro marco usa um terreno e gráficos de teste próprios.
+Motor em Rust em desenvolvimento para carregar o conteúdo e os mundos do Terraria Mobile 1.4.5.8.6 a partir dos arquivos da cópia do jogador.
 
-## Primeiro marco
+## Recursos originais
+
+O leitor inicial lista os arquivos internos de `assets/bin/Data/data.unity3d`, incluindo `resources.assets` e `resources.assets.resS`.
+
+```sh
+cargo run --locked --bin unityfs_index -- /caminho/data.unity3d
+```
+
+O comando roda no computador e lê o índice do pacote sem alterar o arquivo original. A decodificação de texturas e a abertura de mundos `.wld` ainda estão pendentes.
+
+## Protótipo Android inicial
 
 - Mundo 2D de 160 × 72 blocos com câmera e desenho da área visível.
 - Simulação em Rust a 60 passos por segundo, com movimento, gravidade e colisão.
