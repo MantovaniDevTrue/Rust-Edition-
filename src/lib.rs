@@ -1,3 +1,5 @@
+pub mod world_file;
+
 use std::{fs, io, path::Path};
 
 const WIDTH: usize = 160;

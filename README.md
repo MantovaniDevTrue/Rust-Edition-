@@ -10,7 +10,17 @@ O leitor inicial lista os arquivos internos de `assets/bin/Data/data.unity3d`, i
 cargo run --locked --bin unityfs_index -- /caminho/data.unity3d
 ```
 
-O comando roda no computador e lê o índice do pacote sem alterar o arquivo original. A decodificação de texturas e a abertura de mundos `.wld` ainda estão pendentes.
+O comando roda no computador e lê o índice do pacote sem alterar o arquivo original. A decodificação de texturas ainda está pendente.
+
+## Mundos do Terraria
+
+O leitor Rust abre em modo somente leitura o cabeçalho e a seção de tiles de arquivos `.wld` no formato 326. Ele preserva IDs, frames, paredes, líquidos e flags do mapa para uso pelo motor.
+
+```sh
+cargo run --locked --bin inspect_world -- /caminho/mundo.wld
+```
+
+O leitor ainda não está conectado ao renderizador Android.
 
 ## Protótipo Android inicial
 
