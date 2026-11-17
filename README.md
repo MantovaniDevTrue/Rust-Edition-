@@ -20,17 +20,11 @@ O leitor Rust abre em modo somente leitura o cabeçalho e a seção de tiles de 
 cargo run --locked --bin inspect_world -- /caminho/mundo.wld
 ```
 
-O leitor ainda não está conectado ao renderizador Android.
+## Prévia do mapa no Android
 
-## Protótipo Android inicial
+Extraia o arquivo `.wld` do ZIP, abra o Rust Edition e toque em **Abrir mundo (.wld)**. Arraste para navegar e use o gesto de pinça para ampliar. O app lê o arquivo selecionado em modo somente leitura.
 
-- Mundo 2D de 160 × 72 blocos com câmera e desenho da área visível.
-- Simulação em Rust a 60 passos por segundo, com movimento, gravidade e colisão.
-- Controles multitouch. Use as setas para andar, **Pular** e o botão superior para alternar **Quebrar** e **Colocar**. Toque nos blocos próximos para editar.
-- Salvamento ao sair da tela do jogo. O arquivo interno RE01 preserva os blocos e a posição do jogador.
-- APK de desenvolvimento para Android 8.0+ ARM64.
-
-O próximo marco de compatibilidade é ler uma cópia real de um mundo da versão alvo e comparar os tiles, tipos e frames com os vistos no Terraria original. Este protótipo ainda usa o save RE01 e não implementa `.wld`, assets originais, multiplayer ou mods.
+A prévia usa cores de diagnóstico e reduz o mapa para caber em 2.048 pixels no eixo maior. O pacote original organiza tiles e paredes em atlas próprios, cuja integração com o renderizador está pendente. A build ainda não simula o jogo dentro do mundo importado.
 
 ## Compilar
 
@@ -45,4 +39,4 @@ gradle -p android :app:assembleDebug
 
 Saída: `android/app/build/outputs/apk/debug/app-debug.apk`. No GitHub Actions, a compilação disponibiliza o APK no artefato **Rust-Edition-Android-ARM64**.
 
-Para validar no aparelho, abra o app, mova e pule enquanto segura uma seta, altere dois blocos, saia pela tela inicial e reabra. Confira a posição e as edições. A frequência de simulação é fixa e o desempenho de renderização deve ser medido no dispositivo.
+Para validar no aparelho, abra um mundo de formato 326 e confirme que o mapa aparece e responde a arrastar e ampliar.nquanto segura uma seta, altere dois blocos, saia pela tela inicial e reabra. Confira a posição e as edições. A frequência de simulação é fixa e o desempenho de renderização deve ser medido no dispositivo.

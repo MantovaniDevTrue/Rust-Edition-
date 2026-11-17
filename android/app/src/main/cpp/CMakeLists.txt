@@ -13,7 +13,7 @@ add_custom_command(
     WORKING_DIRECTORY "${RUST_ROOT}"
     DEPENDS "${RUST_ROOT}/Cargo.toml" "${RUST_ROOT}/Cargo.lock"
         "${RUST_ROOT}/src/lib.rs" "${RUST_ROOT}/src/android.rs"
-        "${RUST_ROOT}/src/world_file.rs"
+        "${RUST_ROOT}/src/world_file.rs" "${RUST_ROOT}/src/world_preview.rs"
     VERBATIM
 )
 add_custom_target(rust_core DEPENDS "${RUST_ARCHIVE}")

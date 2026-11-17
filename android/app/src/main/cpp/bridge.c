@@ -49,3 +49,24 @@ JNIEXPORT jboolean JNICALL Java_dev_rustedition_MainActivity_snapshotWorld(
     return capacity >= 0 && re_snapshot((const void *)(intptr_t)handle,
         (*env)->GetDirectBufferAddress(env, buffer), (size_t)capacity);
 }
+
+int32_t *re_world_preview(const uint8_t *input, size_t input_len, size_t *output_len);
+void re_drop_preview(int32_t *pixels, size_t length);
+
+JNIEXPORT jintArray JNICALL Java_dev_rustedition_WorldActivity_readPreview(
+    JNIEnv *env, jclass type, jbyteArray input) {
+    jsize input_len = (*env)->GetArrayLength(env, input);
+    if (input_len == 0) return NULL;
+    jbyte *bytes = (*env)->GetByteArrayElements(env, input, NULL);
+    if (!bytes) return NULL;
+    size_t output_len = 0;
+    int32_t *pixels = re_world_preview((const uint8_t *)bytes, (size_t)input_len, &output_len);
+    (*env)->ReleaseByteArrayElements(env, input, bytes, JNI_ABORT);
+    if (!pixels) return NULL;
+    jintArray result = (*env)->NewIntArray(env, (jsize)output_len);
+    if (result) {
+        (*env)->SetIntArrayRegion(env, result, 0, (jsize)output_len, (const jint *)pixels);
+    }
+    re_drop_preview(pixels, output_len);
+    return result;
+}

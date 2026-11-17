@@ -49,3 +49,24 @@ unsafe extern "C" fn re_snapshot(handle: *const c_void, output: *mut u8, length:
     output[16..].copy_from_slice(&world.tiles);
     true
 }
+
+#[no_mangle]
+unsafe extern "C" fn re_world_preview(
+    input: *const u8,
+    input_len: usize,
+    output_len: *mut usize,
+) -> *mut i32 {
+    let data = std::slice::from_raw_parts(input, input_len);
+    match crate::world_preview::build(data) {
+        Ok(pixels) => {
+            *output_len = pixels.len();
+            Box::into_raw(pixels.into_boxed_slice()).cast()
+        }
+        Err(_) => std::ptr::null_mut(),
+    }
+}
+
+#[no_mangle]
+unsafe extern "C" fn re_drop_preview(pixels: *mut i32, length: usize) {
+    drop(Box::from_raw(std::ptr::slice_from_raw_parts_mut(pixels, length)));
+}

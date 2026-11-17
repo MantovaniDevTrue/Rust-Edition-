@@ -1,5 +1,8 @@
 pub mod world_file;
 
+#[cfg(unix)]
+mod world_preview;
+
 use std::{fs, io, path::Path};
 
 const WIDTH: usize = 160;
