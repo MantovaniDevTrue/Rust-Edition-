@@ -8,11 +8,12 @@ set(RUST_ARCHIVE "${CARGO_OUT}/aarch64-linux-android/release/librust_edition.a")
 
 add_custom_command(
     OUTPUT "${RUST_ARCHIVE}"
-    COMMAND "${CARGO}" build --locked --release --target aarch64-linux-android
+    COMMAND "${CARGO}" build --locked --release --lib --target aarch64-linux-android
         --target-dir "${CARGO_OUT}"
     WORKING_DIRECTORY "${RUST_ROOT}"
     DEPENDS "${RUST_ROOT}/Cargo.toml" "${RUST_ROOT}/Cargo.lock"
         "${RUST_ROOT}/src/lib.rs" "${RUST_ROOT}/src/android.rs"
+        "${RUST_ROOT}/src/world_file.rs"
     VERBATIM
 )
 add_custom_target(rust_core DEPENDS "${RUST_ARCHIVE}")
